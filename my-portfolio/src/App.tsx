@@ -3,9 +3,11 @@ import { Card, CardContent } from '@/components/ui/card';
 // import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Menu, X, ExternalLink } from 'lucide-react'; // I should include Download later on.
+import { cn } from './lib/utils';
 // import { BrowserRouter, Routes, Route } from 'react-router-dom';
 // import { Navbar } from './components/ui/Navbar';
 import './App.css'
+import sageAiBanner from '@/assets/sage-ai banner.jpg';
 
 function App() {
   const [activeSection, setActiveSection] = useState('home');
@@ -55,6 +57,13 @@ function App() {
 
   const portfolioItems = [
     {
+      title: "SAGE.AI - Story Adapative Game Engine",
+      category: "Software Engineering",
+      image: sageAiBanner,
+      description: "A Text-Adventure Game that adapts to the player's choices with AI-powered storytelling.",
+      span: 3,
+    },
+    {
       title: "Portfolio Item 1",
       category: "None",
       image: "/placeholder.svg?height=300&width=400",
@@ -68,24 +77,6 @@ function App() {
     },
     {
       title: "Portfolio Item 3",
-      category: "None",
-      image: "/placeholder.svg?height=300&width=400",
-      description: "None",
-    },
-    {
-      title: "Portfolio Item 4",
-      category: "None",
-      image: "/placeholder.svg?height=300&width=400",
-      description: "None",
-    },
-    {
-      title: "Portfolio Item 5",
-      category: "None",
-      image: "/placeholder.svg?height=300&width=400",
-      description: "None",
-    },
-    {
-      title: "Portfolio Item 6",
       category: "None",
       image: "/placeholder.svg?height=300&width=400",
       description: "None",
@@ -192,7 +183,10 @@ function App() {
             {portfolioItems.map((item, index) => (
               <Card
                 key={index}
-                className="bg-black border-gray-800 overflow-hidden group hover:border-gray-600 transition-colors"
+                className={cn(
+                  "bg-black border-gray-800 overflow-hidden group hover:border-gray-600 transition-colors",
+                  (item as any).span && "md:col-span-2 lg:col-span-3"
+                )}
               >
                 <div className="relative overflow-hidden">
                   <img
