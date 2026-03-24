@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
-import { Menu, X, ChevronUp, ChevronDown } from 'lucide-react'; // I should include Download later on.
+import { Menu, X } from 'lucide-react'; // I should include Download later on.
 import NetworkNodes from '@/components/NetworkNodes';
+import { ProjectSelector, type Project } from '@/components/ProjectSelector';
 // import { BrowserRouter, Routes, Route } from 'react-router-dom';
 // import { Navbar } from './components/ui/Navbar';
 import './App.css'
@@ -9,15 +10,6 @@ import sageAiBanner from '@/assets/sage-ai banner.jpg';
 function App() {
   const [activeSection, setActiveSection] = useState('home');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [selectedProjectIndex, setSelectedProjectIndex] = useState(0);
-
-  const handleNextProject = () => {
-    setSelectedProjectIndex((prev) => (prev + 1) % projects.length);
-  };
-
-  const handlePrevProject = () => {
-    setSelectedProjectIndex((prev) => (prev - 1 + projects.length) % projects.length);
-  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -57,7 +49,19 @@ function App() {
     { id: "contact", label: "Contact" },
   ]
 
-  const projects = [
+  const projects: Project[] = [
+    {
+      title: "RCV",
+      category: "Mobile Application",
+      image: "/placeholder.svg?height=800&width=600",
+      description: "A comprehensive application serving specific ecosystem needs.",
+    },
+    {
+      title: "Clinic Management Systm.",
+      category: "Healthcare Software",
+      image: "/placeholder.svg?height=800&width=600",
+      description: "A full-scale system handling patient records and appointments.",
+    },
     {
       title: "SAGE.AI",
       category: "Software Engineering",
@@ -65,22 +69,16 @@ function App() {
       description: "A Text-Adventure Game that adapts to the player's choices with AI-powered storytelling.",
     },
     {
-      title: "Project Alpha",
-      category: "Web Development",
+      title: "RoomDeserv - Room Mngt.",
+      category: "Hospitality Management",
       image: "/placeholder.svg?height=800&width=600",
-      description: "A modern web application built with React and TailwindCSS.",
+      description: "Booking and logistical management application for facilities.",
     },
     {
-      title: "Neon Skies",
-      category: "Game Design",
+      title: "SoloDungeon - MD Calculator",
+      category: "Game Tool",
       image: "/placeholder.svg?height=800&width=600",
-      description: "A cyberpunk themed 2D platformer with neon visuals.",
-    },
-    {
-      title: "Data Dash",
-      category: "Data Science",
-      image: "/placeholder.svg?height=800&width=600",
-      description: "Interactive dashboard for visualizing complex analytics.",
+      description: "Stat calculator to optimize player runs and mechanics.",
     },
   ]
 
@@ -181,75 +179,7 @@ function App() {
             <h2 className="text-4xl font-bold mb-4 tracking-widest text-white uppercase">Projects</h2>
           </div>
           
-          <div className="flex flex-col md:flex-row min-h-[500px] gap-8 items-center justify-center">
-            {/* Left Menu Selector */}
-            <div className="w-full md:w-1/3 flex flex-col items-center justify-center space-y-6">
-              <button onClick={handlePrevProject} className="text-gray-500 hover:text-white transition-colors p-2 hidden md:block">
-                <ChevronUp size={32} />
-              </button>
-              
-              <div className="flex flex-col items-center justify-center w-full relative h-[300px] overflow-hidden mask-image-y">
-                {projects.map((project, idx) => {
-                  const isSelected = idx === selectedProjectIndex;
-                  return (
-                    <div 
-                      key={project.title} 
-                      onClick={() => setSelectedProjectIndex(idx)}
-                      className={`
-                        cursor-pointer transition-all duration-500 flex items-center justify-center absolute
-                        ${isSelected ? 'opacity-100 z-10' : 'opacity-40 hover:opacity-70'}
-                      `}
-                      style={{
-                        top: `calc(50% - 24px + ${(idx - selectedProjectIndex) * 70}px)`
-                      }}
-                    >
-                      <div className={`
-                        border px-6 py-3 w-48 md:w-64 text-center transition-all duration-500
-                        ${isSelected 
-                          ? 'border-white text-white shadow-[0_0_15px_rgba(255,255,255,0.3)]' 
-                          : 'border-gray-700 text-gray-400 bg-black/50'}
-                      `}>
-                        <span className={`font-medium tracking-widest uppercase transition-all duration-500 ${isSelected ? 'text-lg font-bold' : 'text-sm'}`}>
-                          {project.title}
-                        </span>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-
-              <button onClick={handleNextProject} className="text-gray-500 hover:text-white transition-colors p-2 hidden md:block">
-                <ChevronDown size={32} />
-              </button>
-
-              {/* Mobile controls */}
-              <div className="flex md:hidden gap-8 mt-4">
-                <button onClick={handlePrevProject} className="text-gray-300 p-2"><ChevronUp size={24} className="-rotate-90" /></button>
-                <button onClick={handleNextProject} className="text-gray-300 p-2"><ChevronDown size={24} className="-rotate-90" /></button>
-              </div>
-            </div>
-
-            {/* Right Display Area */}
-            <div className="w-full md:w-1/2 h-[450px] relative overflow-visible group flex items-center justify-center">
-              {projects.map((project, idx) => (
-                <div 
-                  key={`img-${idx}`}
-                  className={`absolute transition-all duration-700 ease-in-out w-full flex justify-center items-center ${idx === selectedProjectIndex ? 'opacity-100 z-10 scale-100' : 'opacity-0 z-0 scale-95 pointer-events-none'}`}
-                >
-                  <div className="relative w-full max-w-sm">
-                    {/* To make it look like a character selection, the image floats a bit above. I add a subtle glow. */}
-                    <div className="absolute inset-0 bg-white/5 blur-3xl -z-10 rounded-full"></div>
-                    <img src={project.image} alt={project.title} className="w-full h-auto object-contain max-h-[500px] drop-shadow-2xl transition-transform duration-700 hover:scale-105" />
-                    
-                    <div className="absolute -bottom-12 left-0 right-0 text-center bg-black/50 backdrop-blur-md p-4 rounded-xl border border-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                       <h3 className="text-2xl font-bold mb-2 text-white">{project.title}</h3>
-                       <p className="text-gray-300 text-sm">{project.description}</p>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
+          <ProjectSelector projects={projects} />
         </div>
       </section>
 
