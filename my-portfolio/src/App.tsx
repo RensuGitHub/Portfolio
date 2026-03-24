@@ -5,8 +5,10 @@ import { ProjectSelector, type Project } from '@/components/ProjectSelector';
 // import { BrowserRouter, Routes, Route } from 'react-router-dom';
 // import { Navbar } from './components/ui/Navbar';
 import './App.css'
-import sageAiBanner from '@/assets/sage-ai banner.jpg';
-import nixPreview from '@/assets/Nix.png';
+import sageAiBanner from '@/assets/sage-ai/sage-ai banner.jpg';
+import nixPreview from '@/assets/sage-ai/Nix.png';
+import rcvLogo from '@/assets/regulatory-compliance-verification/rcv-logo.png';
+import rcvBanner from '@/assets/regulatory-compliance-verification/rcv.jpg';
 
 function App() {
   const [activeSection, setActiveSection] = useState('home');
@@ -54,8 +56,8 @@ function App() {
     {
       title: "RCV",
       category: "Mobile Application",
-      image: "/placeholder.svg?height=800&width=600",
-      bgImage: "/placeholder.svg?height=1080&width=1920",
+      image: rcvLogo,
+      bgImage: rcvBanner,
       description: "A comprehensive application serving specific ecosystem needs.",
     },
     {
