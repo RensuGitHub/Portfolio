@@ -48,10 +48,6 @@ function App() {
     { id: "home", label: "Home" },
     { id: "portfolio", label: "Portfolio" },
     { id: "about", label: "About" },
-    { id: "services", label: "Services" },
-    { id: "skills", label: "Skills" },
-    { id: "review", label: "Review" },
-    { id: "blog", label: "Blog" },
     { id: "contact", label: "Contact" },
   ]
 
@@ -89,7 +85,7 @@ function App() {
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between h-16">
             <div className="hidden lg:flex items-center space-x-8">
-              {navItems.slice(0, 4).map((item) => (
+              {navItems.slice(0, 2).map((item) => (
                 <button
                   key={item.id}
                   onClick={() => scrollToSection(item.id)}
@@ -108,7 +104,7 @@ function App() {
 
             {/* Right Navigation */}
             <div className="hidden lg:flex items-center space-x-8">
-              {navItems.slice(4).map((item) => (
+              {navItems.slice(2).map((item) => (
                 <button
                   key={item.id}
                   onClick={() => scrollToSection(item.id)}
@@ -208,6 +204,27 @@ function App() {
               </Card>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* About Section - Placeholder */}
+      <section id="about-section" className="py-20 bg-black">
+        <div className="container mx-auto px-4 text-center">
+            <h2 className="text-4xl font-bold mb-8">About Me</h2>
+            <p className="text-gray-400 max-w-2xl mx-auto">
+                Passionate developer focused on building AI-driven experiences and elegant software solutions.
+            </p>
+        </div>
+      </section>
+
+      {/* Contact Section - Placeholder */}
+      <section id="contact-section" className="py-20 bg-gray-900">
+        <div className="container mx-auto px-4 text-center">
+            <h2 className="text-4xl font-bold mb-8">Get In Touch</h2>
+            <p className="text-gray-400 mb-8">Ready to start your next project?</p>
+            <a href="mailto:contact@shwc.grvc" className="inline-block px-8 py-3 bg-red-600 text-white rounded-full hover:bg-red-700 transition-colors">
+                Email Me
+            </a>
         </div>
       </section>
 
