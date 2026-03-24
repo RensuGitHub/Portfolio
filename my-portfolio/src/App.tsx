@@ -1,9 +1,6 @@
 import { useState, useEffect } from 'react';
-import { Card, CardContent } from '@/components/ui/card';
-// import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { Menu, X, ExternalLink } from 'lucide-react'; // I should include Download later on.
-import { cn } from './lib/utils';
+import { Menu, X, ChevronUp, ChevronDown } from 'lucide-react'; // I should include Download later on.
+import NetworkNodes from '@/components/NetworkNodes';
 // import { BrowserRouter, Routes, Route } from 'react-router-dom';
 // import { Navbar } from './components/ui/Navbar';
 import './App.css'
@@ -12,10 +9,19 @@ import sageAiBanner from '@/assets/sage-ai banner.jpg';
 function App() {
   const [activeSection, setActiveSection] = useState('home');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [selectedProjectIndex, setSelectedProjectIndex] = useState(0);
+
+  const handleNextProject = () => {
+    setSelectedProjectIndex((prev) => (prev + 1) % projects.length);
+  };
+
+  const handlePrevProject = () => {
+    setSelectedProjectIndex((prev) => (prev - 1 + projects.length) % projects.length);
+  };
 
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ["home", "portfolio", "about", "services", "skills", "review", "blog", "contact"]
+      const sections = ["home", "projects", "about", "contact"]
       const scrollPosition = window.scrollY + 100
 
       for (const section of sections) {
@@ -46,36 +52,35 @@ function App() {
 
   const navItems = [
     { id: "home", label: "Home" },
-    { id: "portfolio", label: "Portfolio" },
+    { id: "projects", label: "Projects" },
     { id: "about", label: "About" },
     { id: "contact", label: "Contact" },
   ]
 
-  const portfolioItems = [
+  const projects = [
     {
-      title: "SAGE.AI - Story Adapative Game Engine",
+      title: "SAGE.AI",
       category: "Software Engineering",
       image: sageAiBanner,
       description: "A Text-Adventure Game that adapts to the player's choices with AI-powered storytelling.",
-      span: 3,
     },
     {
-      title: "Portfolio Item 1",
-      category: "None",
-      image: "/placeholder.svg?height=300&width=400",
-      description: "None",
+      title: "Project Alpha",
+      category: "Web Development",
+      image: "/placeholder.svg?height=800&width=600",
+      description: "A modern web application built with React and TailwindCSS.",
     },
     {
-      title: "Portfolio Item 2",
-      category: "None",
-      image: "/placeholder.svg?height=300&width=400",
-      description: "None",
+      title: "Neon Skies",
+      category: "Game Design",
+      image: "/placeholder.svg?height=800&width=600",
+      description: "A cyberpunk themed 2D platformer with neon visuals.",
     },
     {
-      title: "Portfolio Item 3",
-      category: "None",
-      image: "/placeholder.svg?height=300&width=400",
-      description: "None",
+      title: "Data Dash",
+      category: "Data Science",
+      image: "/placeholder.svg?height=800&width=600",
+      description: "Interactive dashboard for visualizing complex analytics.",
     },
   ]
 
@@ -150,13 +155,14 @@ function App() {
               "linear-gradient(rgba(0, 0, 0, 0.7), rgba(0,0,0,0.7)), url('/placeholder.svg?height=1080&width=1920')",
           }}
         />
+        <NetworkNodes />
         <div className="relative z-10 text-center">
           <h1 className="text-6xl md:text-8xl font-bold mb-4 text-white">Unleash</h1>
           <h2 className="text-xl md:text-2xl text-gray-300 mb-12">the visions of creativity.</h2>
           <div className="flex flex-col items-center">
             <div className="w-px h-16 bg-white/30 mb-4"></div>
             <button
-              onClick={() => scrollToSection("portfolio")}
+              onClick={() => scrollToSection("projects")}
               className="flex flex-col items-center text-sm text-gray-400 hover:text-white transition-colors"
             >
               <div className="w-6 h-10 border-2 border-gray-400 rounded-full flex justify-center mb-2">
@@ -168,41 +174,81 @@ function App() {
         </div>
       </section>
 
-      {/* Portfolio Section */}
-      <section id="portfolio-section" className="py-20 bg-gray-900">
-        <div className="container mx-auto px-4">
+      {/* Projects Section */}
+      <section id="projects-section" className="py-20 bg-gray-900 relative overflow-hidden">
+        <div className="container mx-auto px-4 max-w-6xl relative z-10">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold mb-4">Portfolio</h2>
-            <div className="w-16 h-px bg-white mx-auto"></div>
+            <h2 className="text-4xl font-bold mb-4 tracking-widest text-white uppercase">Projects</h2>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {portfolioItems.map((item, index) => (
-              <Card
-                key={index}
-                className={cn(
-                  "bg-black border-gray-800 overflow-hidden group hover:border-gray-600 transition-colors",
-                  (item as any).span && "md:col-span-2 lg:col-span-3"
-                )}
-              >
-                <div className="relative overflow-hidden">
-                  <img
-                    src={item.image || "/placeholder.svg"}
-                    alt={item.title}
-                    className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
-                  />
-                  <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                    <ExternalLink className="text-white" size={24} />
+          
+          <div className="flex flex-col md:flex-row min-h-[500px] gap-8 items-center justify-center">
+            {/* Left Menu Selector */}
+            <div className="w-full md:w-1/3 flex flex-col items-center justify-center space-y-6">
+              <button onClick={handlePrevProject} className="text-gray-500 hover:text-white transition-colors p-2 hidden md:block">
+                <ChevronUp size={32} />
+              </button>
+              
+              <div className="flex flex-col items-center justify-center w-full relative h-[300px] overflow-hidden mask-image-y">
+                {projects.map((project, idx) => {
+                  const isSelected = idx === selectedProjectIndex;
+                  return (
+                    <div 
+                      key={project.title} 
+                      onClick={() => setSelectedProjectIndex(idx)}
+                      className={`
+                        cursor-pointer transition-all duration-500 flex items-center justify-center absolute
+                        ${isSelected ? 'opacity-100 z-10' : 'opacity-40 hover:opacity-70'}
+                      `}
+                      style={{
+                        top: `calc(50% - 24px + ${(idx - selectedProjectIndex) * 70}px)`
+                      }}
+                    >
+                      <div className={`
+                        border px-6 py-3 w-48 md:w-64 text-center transition-all duration-500
+                        ${isSelected 
+                          ? 'border-white text-white shadow-[0_0_15px_rgba(255,255,255,0.3)]' 
+                          : 'border-gray-700 text-gray-400 bg-black/50'}
+                      `}>
+                        <span className={`font-medium tracking-widest uppercase transition-all duration-500 ${isSelected ? 'text-lg font-bold' : 'text-sm'}`}>
+                          {project.title}
+                        </span>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+
+              <button onClick={handleNextProject} className="text-gray-500 hover:text-white transition-colors p-2 hidden md:block">
+                <ChevronDown size={32} />
+              </button>
+
+              {/* Mobile controls */}
+              <div className="flex md:hidden gap-8 mt-4">
+                <button onClick={handlePrevProject} className="text-gray-300 p-2"><ChevronUp size={24} className="-rotate-90" /></button>
+                <button onClick={handleNextProject} className="text-gray-300 p-2"><ChevronDown size={24} className="-rotate-90" /></button>
+              </div>
+            </div>
+
+            {/* Right Display Area */}
+            <div className="w-full md:w-1/2 h-[450px] relative overflow-visible group flex items-center justify-center">
+              {projects.map((project, idx) => (
+                <div 
+                  key={`img-${idx}`}
+                  className={`absolute transition-all duration-700 ease-in-out w-full flex justify-center items-center ${idx === selectedProjectIndex ? 'opacity-100 z-10 scale-100' : 'opacity-0 z-0 scale-95 pointer-events-none'}`}
+                >
+                  <div className="relative w-full max-w-sm">
+                    {/* To make it look like a character selection, the image floats a bit above. I add a subtle glow. */}
+                    <div className="absolute inset-0 bg-white/5 blur-3xl -z-10 rounded-full"></div>
+                    <img src={project.image} alt={project.title} className="w-full h-auto object-contain max-h-[500px] drop-shadow-2xl transition-transform duration-700 hover:scale-105" />
+                    
+                    <div className="absolute -bottom-12 left-0 right-0 text-center bg-black/50 backdrop-blur-md p-4 rounded-xl border border-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                       <h3 className="text-2xl font-bold mb-2 text-white">{project.title}</h3>
+                       <p className="text-gray-300 text-sm">{project.description}</p>
+                    </div>
                   </div>
                 </div>
-                <CardContent className="p-6">
-                  <Badge variant="secondary" className="mb-2">
-                    {item.category}
-                  </Badge>
-                  <h3 className="text-xl font-semibold mb-2">{item.title}</h3>
-                  <p className="text-gray-400 text-sm">{item.description}</p>
-                </CardContent>
-              </Card>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
       </section>
