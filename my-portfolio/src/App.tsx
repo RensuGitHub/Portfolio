@@ -6,6 +6,7 @@ import { ProjectSelector, type Project } from '@/components/ProjectSelector';
 // import { Navbar } from './components/ui/Navbar';
 import './App.css'
 import sageAiBanner from '@/assets/sage-ai banner.jpg';
+import nixPreview from '@/assets/Nix.png';
 
 function App() {
   const [activeSection, setActiveSection] = useState('home');
@@ -54,30 +55,35 @@ function App() {
       title: "RCV",
       category: "Mobile Application",
       image: "/placeholder.svg?height=800&width=600",
+      bgImage: "/placeholder.svg?height=1080&width=1920",
       description: "A comprehensive application serving specific ecosystem needs.",
     },
     {
       title: "Clinic Management Systm.",
       category: "Healthcare Software",
       image: "/placeholder.svg?height=800&width=600",
+      bgImage: "/placeholder.svg?height=1080&width=1920",
       description: "A full-scale system handling patient records and appointments.",
     },
     {
       title: "SAGE.AI",
       category: "Software Engineering",
-      image: sageAiBanner,
+      image: nixPreview,
+      bgImage: sageAiBanner,
       description: "A Text-Adventure Game that adapts to the player's choices with AI-powered storytelling.",
     },
     {
       title: "RoomDeserv - Room Mngt.",
       category: "Hospitality Management",
       image: "/placeholder.svg?height=800&width=600",
+      bgImage: "/placeholder.svg?height=1080&width=1920",
       description: "Booking and logistical management application for facilities.",
     },
     {
       title: "SoloDungeon - MD Calculator",
       category: "Game Tool",
       image: "/placeholder.svg?height=800&width=600",
+      bgImage: "/placeholder.svg?height=1080&width=1920",
       description: "Stat calculator to optimize player runs and mechanics.",
     },
   ]
@@ -173,15 +179,7 @@ function App() {
       </section>
 
       {/* Projects Section */}
-      <section id="projects-section" className="py-20 bg-gray-900 relative overflow-hidden">
-        <div className="container mx-auto px-4 max-w-6xl relative z-10">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold mb-4 tracking-widest text-white uppercase">Projects</h2>
-          </div>
-          
-          <ProjectSelector projects={projects} />
-        </div>
-      </section>
+      <ProjectSelector projects={projects} />
 
       {/* About Section - Placeholder */}
       <section id="about-section" className="py-20 bg-black">

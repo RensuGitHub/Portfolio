@@ -6,6 +6,7 @@ export interface Project {
   title: string;
   category: string;
   image: string;
+  bgImage: string;
   description: string;
   span?: number;
 }
@@ -35,9 +36,25 @@ export function ProjectSelector({ projects }: ProjectSelectorProps) {
   };
 
   return (
-    <div className="flex flex-col md:flex-row min-h-[700px] gap-12 items-center justify-center">
-      {/* Left Menu Selector */}
-      <div className="w-full md:w-2/5 flex flex-col items-center justify-center space-y-8">
+    <section id="projects-section" className="py-20 bg-gray-900 relative overflow-hidden">
+      {/* Background Images Layer */}
+      {projects.map((p, idx) => (
+        <div 
+           key={`bg-${p.title}`} 
+           className={`absolute inset-0 transition-opacity duration-1000 ${idx === selectedProjectIndex ? 'opacity-40' : 'opacity-0'}`}
+        >
+          <img src={p.bgImage} alt="" className="w-full h-full object-cover transition-transform duration-[10000ms] ease-out" style={{ transform: idx === selectedProjectIndex ? 'scale(1.05)' : 'scale(1)' }}/>
+          <div className="absolute inset-0 bg-gradient-to-b from-gray-950 via-gray-900/60 to-gray-950"></div>
+        </div>
+      ))}
+      
+      <div className="container mx-auto px-4 max-w-6xl relative z-10">
+        <div className="text-center mb-16">
+          <h2 className="text-4xl font-bold mb-4 tracking-widest text-white uppercase">Projects</h2>
+        </div>
+        <div className="flex flex-col md:flex-row min-h-[700px] gap-12 items-center justify-center">
+          {/* Left Menu Selector */}
+          <div className="w-full md:w-2/5 flex flex-col items-center justify-center space-y-8">
         <button onClick={handlePrevProject} className="text-gray-500 hover:text-white transition-colors p-2 hidden md:block">
           <ChevronUp size={40} />
         </button>
@@ -120,6 +137,8 @@ export function ProjectSelector({ projects }: ProjectSelectorProps) {
           </div>
         ))}
       </div>
-    </div>
+        </div>
+      </div>
+    </section>
   );
 }
