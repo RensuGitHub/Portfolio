@@ -39,7 +39,7 @@ function App() {
     window.addEventListener("scroll", handleScroll)
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
-  
+
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(`${sectionId}-section`)
     if (element) {
@@ -89,9 +89,8 @@ function App() {
                 <button
                   key={item.id}
                   onClick={() => scrollToSection(item.id)}
-                  className={`text-sm font-medium transition-colors hover:text-white ${
-                    activeSection === item.id ? "text-white" : "text-gray-400"
-                  }`}
+                  className={`text-sm font-medium transition-colors hover:text-white ${activeSection === item.id ? "text-white" : "text-gray-400"
+                    }`}
                 >
                   {item.label}
                 </button>
@@ -108,9 +107,8 @@ function App() {
                 <button
                   key={item.id}
                   onClick={() => scrollToSection(item.id)}
-                  className={`text-sm font-medium transition-colors hover:text-white ${
-                    activeSection === item.id ? "text-white" : "text-gray-400"
-                  }`}
+                  className={`text-sm font-medium transition-colors hover:text-white ${activeSection === item.id ? "text-white" : "text-gray-400"
+                    }`}
                 >
                   {item.label}
                 </button>
@@ -129,9 +127,8 @@ function App() {
                   <button
                     key={item.id}
                     onClick={() => scrollToSection(item.id)}
-                    className={`text-left py-2 px-4 text-sm font-medium transition-colors hover:text-white ${
-                      activeSection === item.id ? "text-white bg-gray-800" : "text-gray-400"
-                    }`}
+                    className={`text-left py-2 px-4 text-sm font-medium transition-colors hover:text-white ${activeSection === item.id ? "text-white bg-gray-800" : "text-gray-400"
+                      }`}
                   >
                     {item.label}
                   </button>
@@ -213,18 +210,18 @@ function App() {
             {/* Left: Text & Info */}
             <div className="flex flex-col space-y-12 pb-8">
               <div>
-                <h2 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-8 leading-[1.1]">Let's start a<br/>conversation.</h2>
+                <h2 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-8 leading-[1.1]">Let's start a<br />conversation.</h2>
                 <p className="text-gray-400 text-lg max-w-md leading-relaxed">
                   Whether you have a project in mind or just want to say hi, my inbox is always open for interesting discussions.
                 </p>
               </div>
-              
+
               <div className="space-y-8">
                 <div className="flex items-center gap-6 text-gray-300">
                   <div className="w-14 h-14 bg-gray-900 border border-gray-800 rounded-full flex items-center justify-center shrink-0 shadow-lg">
                     <Mail size={22} className="text-red-500" />
                   </div>
-                  <span className="text-xl tracking-wide">capalac.garvybscs2022@gmail.com</span>
+                  <span className="text-xl tracking-wide">capalacgarvy@gmail.com</span>
                 </div>
                 <div className="flex items-center gap-6 text-gray-300">
                   <div className="w-14 h-14 bg-gray-900 border border-gray-800 rounded-full flex items-center justify-center shrink-0 shadow-lg">
@@ -257,7 +254,7 @@ function App() {
                     <input type="email" placeholder="john@example.com" className="w-full bg-transparent border-b border-gray-800 py-2 text-white outline-none focus:border-red-500 transition-colors placeholder:text-gray-800 font-light" />
                   </div>
                 </div>
-                
+
                 <div className="space-y-2 relative group">
                   <label className="text-xs text-gray-500 font-bold tracking-widest uppercase transition-colors group-focus-within:text-red-500">Subject</label>
                   <input type="text" placeholder="Project Inquiry" className="w-full bg-transparent border-b border-gray-800 py-2 text-white outline-none focus:border-red-500 transition-colors placeholder:text-gray-800 font-light" />

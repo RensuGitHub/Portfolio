@@ -12,6 +12,9 @@ my-portfolio/node_modules/
 dist/
 my-portfolio/dist/
 
+# Agents
+.agents
+
 # Miscellaneous
 *.log
 .DS_Store
